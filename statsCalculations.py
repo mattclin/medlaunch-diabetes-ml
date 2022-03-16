@@ -7,9 +7,9 @@ import pandas as pd
 from datetime import datetime
 import statistics
 
-FILENAME = "/Users/mlwchang/Desktop/MedLaunchProject/Calculating_Stats/Arakali_Sujai_2021-10-21_3Days.csv"
+FILENAME = "/Users/mlwchang/Desktop/MedLaunchProject/Calculating_Stats/Data"
 
-def read_data():
+def read_data(FILENAME):
         '''Reads csv data from self.filename as a pandas dataframe.'''
 
         keep_cols = [ 'Timestamp (YYYY-MM-DDThh:mm:ss)',
@@ -43,15 +43,15 @@ def read_data():
 # Also calculates maximum glucose between two timestamps passed in 
 # returns a dictionary with various stats
 def calculateStats(time1, time2, glucoseDict):
-    x = 0
     glucoseList = []
+    # pick out the data we want
     for item in glucoseDict:
         if (max(item,time1) == item and max(item,time2) == time2):
             glucoseList.append(glucoseDict[item])
-            x = x+1
     maxGlucose = glucoseList[0]
     inRange = 0
     
+    # calculate maximum and amount of times in range
     for i in glucoseList:
         if i > maxGlucose:
             maxGlucose = i
@@ -60,6 +60,7 @@ def calculateStats(time1, time2, glucoseDict):
     inRangePercent = inRange/len(glucoseList) * 100
     avgGlucose = sum(glucoseList)/len(glucoseList)
     stDevGlucose = statistics.stdev(glucoseList)
+    # Make dictionary with all the statistics 
     statsDict = {"Max": maxGlucose, "inRangePercent" : inRangePercent, "Average": avgGlucose, "Standard_Deviation": stDevGlucose }
     return statsDict
 # Returns a percentage between 0 and 100 based on weights passed in and the stats dictionary
@@ -98,18 +99,27 @@ def calculateLetterGrade(percentage):
     elif percentage % 10 > 7:
         grade += '+'
     return grade
-def main():
+# Full processing function, calculate stats/letter grades between two timestamps, default is the current time for time 2
+def fullProcessing(file, time1, time2 = datetime.now()):
     # read data from csv
-    df = read_data()
-
+    df = read_data(file)
     # make a dictionary using the glucose values
     glucose = pd.Series(df.Glucose.values, index=df.Timestamp).dropna().to_dict()
-
     # get the keys of the dictionary (these are the time stamps)
     glucose_keys = list(glucose.keys())
-
     # Calculate the various statistics between the first and last timestamps, returns a dictionary with keys of [maxGlucose, inRangePercent, Average, Standard_Deviation]    
-    statsDict = calculateStats(glucose_keys[0], glucose_keys[-1],glucose)
+    statsDict = calculateStats(time1, time2,glucose)
+    # Calculates percentage based on statsDict
+    percentage = calculateOverallPercentage(statsDict,[0.1,0.9])
+    return statsDict, calculateLetterGrade(percentage)
+
+
+def main():
+    # Testing date
+    date_String = "10-20-2021"
+    time1 = datetime.strptime(date_String, '%m-%d-%Y')
+ 
+    print(fullProcessing(FILENAME, time1))
 
 if __name__ == "__main__":
     main()
