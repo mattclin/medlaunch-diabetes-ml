@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/html5reset.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel= "shortcut icon" type= "image/png" href= "{{ url_for('static',filename='images/team-logo.png') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Architects+Daughter&family=Montserrat&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <title>Sugar Buddy</title>
+      </head>
+  
+
+    <body>
+      <div class="skip"><a href="#main">Skip to Main Content</a></div>
+      <header>
+        <a href="/"><img src = "{{ url_for('static', filename = 'images/team-logo.png') }}" alt="image of logo" id = "logo"></a></li>
+      <nav>
+          <ul class="nav_links">
+            <li><a class="current" href="quickfacts">Quickfacts</a></li>
+            <li><a href="calculator">Calculator</a></li>
+            <li><a  href="treatments">Treatments</a></li>
+            <li><a  href="form/">Input Data</a></li>
+          </ul>
+      </nav>
+      </header>
+      
+    
+    <div class = "boxes"> 
+      <div class = "quickfacts">
+        <h1>Quick Facts about <br> Type 1 Diabetes</h1>
+          <p>Type 1 diabetes occurs when your pancreas produces little to no 
+            insulin. Without the proper amount of insulin, blood sugar does 
+            not go into the cells but instead builds in the bloodstream.
+          </p>
+          <div class = "box">
+            <a href="https://www.jdrf.org/t1d-resources/" class="button">Click here to learn more!</a>
+          </div>
+      </div>
+
+      <div class = "symptoms">
+        <img src="{{ url_for('static',filename='images/diabetes.png') }}" alt="Diabete Symptoms include 
+        extreme thirst, increased appetite, blurred vision, frequent 
+        urination, weight loss and fatigue."/>
+        <p><strong>Symptoms</strong> of type 1 diabetes</p>
+      </div>
+
+      
+      
+    </div>
+    </body>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <link rel="stylesheet" href="css/html5reset.css">
+        <link rel="stylesheet" href="css/style.css"> -->
+        <!-- <link rel="shortcut icon" type="image/png" href="images/team-logo.png"/> -->
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/html5reset.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel= "shortcut icon" type= "image/png" href= "{{ url_for('static',filename='images/team-logo.png') }}">
+        
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Architects+Daughter&family=Montserrat&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <title>Sugar Buddy</title>
+      </head>
+  
+
+    <body>
+      <div class="skip"><a href="#main">Skip to Main Content</a></div>
+      <header>
+        <a href="/"><img src = "{{ url_for('static', filename = 'images/team-logo.png') }}" alt="image of logo" id = "logo"></a></li>
+      <nav>
+          <ul class="nav_links">
+            <li><a href="quickfacts">Quickfacts</a></li>
+            <li><a class="current" href="calculator">Calculator</a></li>
+            <li><a  href="treatments">Treatments</a></li>
+            <li><a  href="form/">Input Data</a></li>
+          </ul>
+      </nav>
+      </header>
+
+      <div class = const>
+          <!-- <img src = "images/calculator-temp-page.png" alt = "Under Construction"> -->
+          <img src="{{url_for('static', filename='images/calculator-temp-page.png')}}" alt = "Under Construction" />
+      </div>
+    </body>

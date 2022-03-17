@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/html5reset.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel= "shortcut icon" type= "image/png" href= "{{ url_for('static',filename='images/team-logo.png') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Architects+Daughter&family=Montserrat&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <title>Sugar Buddy</title>
+      </head>
+  
+
+    <body>
+
+      <div class="skip"><a href="#main">Skip to Main Content</a></div>
+      <header>
+        <a href="/"><img src = "{{ url_for('static', filename = 'images/team-logo.png') }}" alt="image of logo" id = "logo"></a></li>
+      <nav>
+          <ul class="nav_links">
+            <li><a href="quickfacts">Quickfacts</a></li>
+            <li><a href="calculator">Calculator</a></li>
+            <li><a class="current" href="treatments">Treatments</a></li>
+            <li><a  href="form/">Input Data</a></li>
+          </ul>
+      </nav>
+      </header>
+
+      <h1>Treatments</h1>
+      
+      <div class = "container"> 
+
+      <div class = "flip-card"> 
+        <div tabindex="0" class = "flip-card-inner">
+          <div class = "flip-card-front">
+            <figure>
+              <img src="{{ url_for('static', filename = 'images/insulin.png') }} " alt="insulin" style="width:400px;height:400px;">          
+          </div>
+          <div class = "flip-card-back"> 
+          <div class="insulin">
+            <a id="insulin"></a>
+            <p>Delivered through syringes, pens, pumps or new artificial pancreas systems. Frequency and type of insulin dosage vary 
+          on each individual.</p> 
+            </div>
+        </div>
+        </div>
+      </div>
+
+    <div class = "flip-card">
+
+      <div tabindex="0" class = "flip-card-inner">
+        <div class = "flip-card-front">
+            <img src="{{ url_for('static', filename = 'images/bloodsugar.png') }}" alt="Blood Sugar Monitoring" style="width:400px;height:400px;">
+          </figure>
+        </div>
+      <div class = "flip-card-back"> 
+        <div class="blood-sugar">
+          <a id="blood-sugar"></a>
+          <p>Being aware of your blood-sugar levels and acting accordingly is important since monitoring helps individuals know when insulin is 
+            needed to correct high blood sugar and when carbohydrates are needed to correct low blood sugar. </p> 
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class = "flip-card"> 
+      <div tabindex="0" class = "flip-card-inner">
+        <div class = "flip-card-front">
+            <img src="{{ url_for('static', filename = 'images/pills.png') }}" alt="Other drugs" style="width:400px;height:400px;">
+          </figure>
+        </div>
+      <div class = "flip-card-back"> 
+        <div class="other-drugs">
+          <a id="other-drugs"></a>
+          <p>High blood pressure and high cholesterol medications can be prescribed with insulin to help 
+            the overall health and treatment of diabetes. </p> 
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class = "flip-card"> 
+      <div tabindex="0" class = "flip-card-inner">
+        <div class = "flip-card-front">
+            <img src="{{ url_for('static', filename = 'images/scale.png') }}" alt="Carb Counting" style="width:400px;height:400px;">
+          </figure>
+        </div>
+      <div class = "flip-card-back"> 
+        <div class="carb-counting">
+          <a id="carb-counting"></a>
+          <p>Factoring the insulin to carb ratio helps maintain stable blood-sugar levels.</p> 
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class = "flip-card"> 
+      <div tabindex="0" class = "flip-card-inner">
+        <div class = "flip-card-front">
+            <img src="{{ url_for('static', filename = 'images/weight.png') }} " alt="Exercise and Diet" style="width:400px;height:400px;">
+          </figure>
+          
+        </div>
+      <div class = "flip-card-back"> 
+        <div class="exercise-diet">
+          <a id="exercise-diet"></a>
+          <p>Eat a healthy mix of all food groups with a focus on lower consumption of empty carbs. <br>
+          Engage in regular exercise as it helps control blood glucose because it increases your insulin sensitivity</p> 
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class = "flip-card"> 
+      <div tabindex="0" class = "flip-card-inner">
+        <div class = "flip-card-front">
+          <img src="{{ url_for('static', filename = 'images/stethescope.png') }} " alt="Regular Medical Check-ups " style="width:400px;height:400px;">
+        </div>
+      <div class = "flip-card-back"> 
+        <div class="medical">
+          <a id="medical"></a>
+          <p>Meet regularly with a team of medical professionals that include endocrinologists, ophthalmologists, and dietitians</p>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
+
+    </body>
