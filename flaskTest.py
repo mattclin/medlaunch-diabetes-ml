@@ -10,19 +10,23 @@ VAR_DICT = {}
 app = Flask(__name__)
 
 
+# Home Page
 @app.route('/')
-def index():
-    return 'Index Page'
 
-@app.route("/hello")
-def hello_world():
-    return "<p>Hello, World!</p>" + calculateLetterGrade(85)
+def index1():
+    return render_template('/medlaunch-diabetes-website/index.html')
 
+@app.route("/calculator")
+def calculator1():
+    return render_template('/medlaunch-diabetes-website/calculator.html')
 
-# @app.route("/read_data")
-# def processFile():
-#     data = read_data(DATA_NAME)
-#     return (fullProcessing(DATA_NAME,0,-1))
+@app.route("/quickfacts")
+def quickfacts1():
+    return render_template('/medlaunch-diabetes-website/quickfacts.html')
+
+@app.route("/treatments")
+def treatments1():
+    return render_template('/medlaunch-diabetes-website/treatments.html')
 
 @app.route("/form/")
 def form():
@@ -42,18 +46,20 @@ def upload():
         date2 = datetime.strptime(date2, '%Y-%m-%d:%H:%M')
 
         # add variables to global dictionary if needed in other routes
-        VAR_DICT.update({"Filename": f.filename})
-        VAR_DICT.update({"date1": date1})
-        VAR_DICT.update({"date2": date2})
-        print(request.form.get("Date"))
-        print(request.form.get('Blank'))
-        print(VAR_DICT['date1'])
-        print(VAR_DICT['date2'])
+        # VAR_DICT.update({"Filename": f.filename})
+        # VAR_DICT.update({"date1": date1})
+        # VAR_DICT.update({"date2": date2})
+        # print(request.form.get("Date"))
+        # print(request.form.get('Blank'))
+        # print(VAR_DICT['date1'])
+        # print(VAR_DICT['date2'])
 
-        # returns stats dict (keys: Max, inRangePercent, avgGlucose, stDevGlucose)
+        # returns stats dict (keys: Max, inRangePercent, Average, Standard_Deviation)
         stats,grade = fullProcessing(f.filename,date1,date2)
-        print(stats["inRangePercent"])
-        return grade + "Data and file saved successfully"
+        inRange = stats['inRangePercent']
+        print(stats.keys())
+        return render_template('data.html', gradeValue = grade, inRangePercent = round(inRange,2), mean = round(stats['Average'],2), Max = stats['Max'], Deviation = round(stats['Standard_Deviation'],2))
+
 
 
 if __name__==('__main__'):
