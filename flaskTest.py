@@ -18,7 +18,7 @@ def index1():
 
 @app.route("/calculator")
 def calculator1():
-    return render_template('/medlaunch-diabetes-website/calculator.html')
+    return render_template('/medlaunch-diabetes-website/calculatorTest.html')
 
 @app.route("/quickfacts")
 def quickfacts1():
@@ -42,8 +42,8 @@ def upload():
         # save the dates submitted by the user
         date1 = request.form.get("date1") + ":" + request.form.get('time1')
         date1 = datetime.strptime(date1, '%Y-%m-%d:%H:%M')
-        date2 = request.form.get("date2") + ":" + request.form.get('time2')
-        date2 = datetime.strptime(date2, '%Y-%m-%d:%H:%M')
+        # date2 = request.form.get("date2") + ":" + request.form.get('time2')
+        # date2 = datetime.strptime(date2, '%Y-%m-%d:%H:%M')
 
         # add variables to global dictionary if needed in other routes
         # VAR_DICT.update({"Filename": f.filename})
@@ -57,7 +57,7 @@ def upload():
         # returns stats dict (keys: Max, inRangePercent, Average, Standard_Deviation)
         
         #graphName = graphData(f.filename)
-        stats,grade = fullProcessing(f.filename,date1,date2)
+        stats,grade = fullProcessing(f.filename,date1) # can add date 2 if desired
         inRange = stats['inRangePercent']
         
         return render_template('data.html', gradeValue = grade, inRangePercent = round(inRange,2), mean = round(stats['Average'],2), Max = stats['Max'], Deviation = round(stats['Standard_Deviation'],2))
