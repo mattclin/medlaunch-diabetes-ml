@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request
-from flask import request
-from statsCalculations import calculateLetterGrade, read_data, fullProcessing 
+from statsCalculations import calculateLetterGrade, read_data, fullProcessing, graphData 
 from datetime import datetime
-from sqlite3 import Timestamp
-import os
+
+
+
 DATA_NAME = "Data"
 VAR_DICT = {}
 
@@ -55,9 +55,11 @@ def upload():
         # print(VAR_DICT['date2'])
 
         # returns stats dict (keys: Max, inRangePercent, Average, Standard_Deviation)
+        
+        #graphName = graphData(f.filename)
         stats,grade = fullProcessing(f.filename,date1,date2)
         inRange = stats['inRangePercent']
-        print(stats.keys())
+        
         return render_template('data.html', gradeValue = grade, inRangePercent = round(inRange,2), mean = round(stats['Average'],2), Max = stats['Max'], Deviation = round(stats['Standard_Deviation'],2))
 
 

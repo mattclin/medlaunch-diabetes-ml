@@ -6,10 +6,11 @@ from matplotlib import ticker
 import pandas as pd
 from datetime import datetime
 import statistics
+from matplotlib.figure import Figure
 
 FILENAME = "/Users/mlwchang/Desktop/MedLaunchProject/Calculating_Stats/Data"
 
-def read_data(FILENAME):
+def read_data(file):
         '''Reads csv data from self.filename as a pandas dataframe.'''
 
         keep_cols = [ 'Timestamp (YYYY-MM-DDThh:mm:ss)',
@@ -27,7 +28,7 @@ def read_data(FILENAME):
                         'Transmitter ID' ]
         '''
         
-        df = pd.read_csv(FILENAME, usecols=keep_cols, parse_dates= ['Timestamp (YYYY-MM-DDThh:mm:ss)'])
+        df = pd.read_csv(file, usecols=keep_cols, parse_dates= ['Timestamp (YYYY-MM-DDThh:mm:ss)'])
         
         df.rename(
             columns=({ 'Timestamp (YYYY-MM-DDThh:mm:ss)': 'Timestamp',
@@ -113,13 +114,43 @@ def fullProcessing(file, time1, time2 = datetime.now()):
     percentage = calculateOverallPercentage(statsDict,[0.1,0.9])
     return statsDict, calculateLetterGrade(percentage)
 
+# graph the blood glucose data from a given file
+def graphData(file, upperThreshold=70, lowerThreshold=170):
+    df = read_data(file)
+    imageName = 'glucose.png'
+    # fig = Figure()
+    # ax = fig.add_subplot(1, 1, 1)
+    # df['Timestamp'] = pd.to_datetime(df['Timestamp'], errors='coerce')
+    # ax = df.plot(kind="line", x="Timestamp",y="Glucose", color="b", label="Glucose")
+    # df.plot(kind="scatter",x="Timestamp",y="Carb", color="g", label="Carbs (g)", ax=ax)
+    # df.plot(kind="scatter",x="Timestamp",y="Insulin", color="c", label="Insulin (u / 10)", ax=ax) 
+    # # TODO: Read in these values for Glucose Values too High/Low from csv
+    # plt.axhline(y=lowerThreshold, color='r', linestyle='-')
+    # plt.axhline(y=upperThreshold, color='r', linestyle='-')
+
+    # # Increases number of ticks on y-axis
+    # # axes.yaxis.set_major_locator(ticker.MaxNLocator(20))
+
+    # plt.xticks(rotation=45)
+
+    # ax.set_xlabel("Timestamp")
+    # ax.set_ylabel("Glucose Value(mg/dL)")    
+    # imagePath = 'static/images/'+imageName
+    
+    # # Moves legend/graph labels to top-center of image
+    # ax.legend(bbox_to_anchor=(0.5, 1.1))
+    # plt.savefig(imagePath)
+
+    # plt.savefig(imageName)
+
+    return imageName
 
 def main():
     # Testing date
     date_String = "10-20-2021"
     time1 = datetime.strptime(date_String, '%m-%d-%Y')
  
-    print(fullProcessing(FILENAME, time1))
+    graphData(FILENAME)
 
 if __name__ == "__main__":
     main()
