@@ -5,6 +5,13 @@ h1{
   text-align: center;
   position: relative;
   }
+h2{
+  font-size: 40px;
+  padding: 50px 0;
+}
+body{
+  height:100%;
+}
 *{
   font-family: 'Montserrat', sans-serif;
 }
@@ -29,6 +36,7 @@ header{
 header img {
   height: 70px;
 }
+
 nav{
   padding: 25px 0;    
   text-align: left;
@@ -190,7 +198,7 @@ nav .current{
   }
 
   .homepage img >*{
-    padding:50px;
+    padding: 50px;
   }
   .const{
     width: 70%;
@@ -235,4 +243,119 @@ nav .current{
       border: none;
       cursor: pointer;
       border-radius: 5px;
+    }
+    .data{
+      margin-top: 50px;
+      display: flex;
+      padding: 10px;
+      flex-flow:row wrap;
+      flex-direction: row;
+      /* padding-right: 50px; */
+    }
+
+    .data .top-left{
+      width: 40%;
+      text-align: left;
+      margin-left: 6.6%;
+      margin-right: 3.4%;
+    }
+    .data .top-right{ 
+      width: 40%;
+      text-align: center;
+      margin-left: 3.4%;
+      margin-right: 6.6%;
+    }
+
+    .data .bottom-left{
+      width: 40%;
+      text-align: left;
+      margin-left: 6.6%;
+      margin-right: 3.4%;
+    }
+    
+    .data .bottom-left p{
+      background-color: #E8DCB9;
+      padding: 30px;
+    }
+
+    .data .bottom-right{
+      width: 40%;
+      text-align: left;
+      margin-left: 3.4%;
+      margin-right: 6.6%;
+    }
+
+    .data .bottom-right p{
+      background-color: #E8DCB9; 
+      padding: 30px;
+    }
+
+    @media all and (min-width: 600px) {
+      .d{flex:1 0 1 1}
+    }
+    
+     .button #submit{
+      background-color: #E8DCB9;
+      color:#407BFF;
+      position: absolute;
+      right:0;
+      margin-right: 113px;
+      height:30px;
+      width:80px;
+      font-weight: bold;
+    } 
+    .button{
+      padding-right:20px;
+    }
+    .everything{
+      display:flex; 
+      flex-direction:row;
+      padding-bottom: 30px;
+    }
+
+    .left{
+      background-color: #E8DCB9;
+      width: 40%;
+      text-align: left;
+      margin-left: 6.6%;
+      margin-right: 3.4%;
+      padding-left: 10px;
+      height: 60vh;
+    }
+    .right{
+      background-color: #E8DCB9;
+      width: 40%;
+      margin-left: 3.4%;
+      margin-right: 6.6%;
+      height: 60vh;
+    }
+    .right h2, .left h2{
+      padding-top:0;
+      text-align: center;
+      padding-bottom:0;
+    }
+    
+    .left h3{
+      line-height: 2em;
+    }
+
+    .btn3 {
+      background-color: #E8DCB9;
+      position: absolute;
+      left:0;
+      margin-right: 10px;
+      height:30px;
+      width:80px;
+      font-weight: bold;
+      margin-left: 112px;
+
+    }
+
+    footer{
+      background-color: #48A5D3; 
+      color: white;
+      bottom:0px;
+      text-align: center;
+      margin-top: 50px;
+      width: 100%;
     }
