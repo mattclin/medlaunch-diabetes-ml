@@ -7,6 +7,9 @@ import pandas as pd
 from datetime import datetime
 import statistics
 from matplotlib.figure import Figure
+import os
+from io import BytesIO
+import base64
 
 FILENAME = "/Users/mlwchang/Desktop/MedLaunchProject/Calculating_Stats/Data"
 
@@ -49,6 +52,8 @@ def calculateStats(time1, time2, glucoseDict):
     for item in glucoseDict:
         if (max(item,time1) == item and max(item,time2) == time2):
             glucoseList.append(glucoseDict[item])
+
+    # print("MAX GLUCOSE:", glucoseList)
     maxGlucose = glucoseList[0]
     inRange = 0
     
@@ -79,7 +84,7 @@ def calculateOverallPercentage(statsDict, weights):
 
 # returns a letter grade based on the percentage
 def calculateLetterGrade(percentage):
-    print(percentage)
+    # print(percentage)
     if percentage < 60:
         return "E"
     elif percentage < 70:
@@ -114,43 +119,93 @@ def fullProcessing(file, time1, time2 = datetime.now()):
     percentage = calculateOverallPercentage(statsDict,[0.1,0.9])
     return statsDict, calculateLetterGrade(percentage)
 
-# graph the blood glucose data from a given file
-def graphData(file, upperThreshold=70, lowerThreshold=170):
-    df = read_data(file)
-    imageName = 'glucose.png'
-    # fig = Figure()
-    # ax = fig.add_subplot(1, 1, 1)
-    # df['Timestamp'] = pd.to_datetime(df['Timestamp'], errors='coerce')
-    # ax = df.plot(kind="line", x="Timestamp",y="Glucose", color="b", label="Glucose")
-    # df.plot(kind="scatter",x="Timestamp",y="Carb", color="g", label="Carbs (g)", ax=ax)
-    # df.plot(kind="scatter",x="Timestamp",y="Insulin", color="c", label="Insulin (u / 10)", ax=ax) 
-    # # TODO: Read in these values for Glucose Values too High/Low from csv
-    # plt.axhline(y=lowerThreshold, color='r', linestyle='-')
-    # plt.axhline(y=upperThreshold, color='r', linestyle='-')
+class GraphData:
+    def __init__(self, filename, imagename, start, end = datetime.now()):
+        self.filename = filename
+        self.imagename = imagename
+        self.df = self.read_data()
+        self.start_date = start
+        self.end_date = end
 
-    # # Increases number of ticks on y-axis
-    # # axes.yaxis.set_major_locator(ticker.MaxNLocator(20))
+    def read_data(self):
+        '''Reads csv data from self.filename as a pandas dataframe.'''
 
-    # plt.xticks(rotation=45)
+        keep_cols = [ 'Timestamp (YYYY-MM-DDThh:mm:ss)',
+                      'Event Subtype',
+                      'Glucose Value (mg/dL)',
+                      'Insulin Value (u)',
+                      'Carb Value (grams)',
+                      'Duration (hh:mm:ss)',
+                      'Glucose Rate of Change (mg/dL/min)' ]
+        '''
+        # Add back in if necessary
+        ignore_cols = [ 'Device Info', 
+                        'Source Device ID', 
+                        'Transmitter Time (Long Integer)',
+                        'Transmitter ID' ]
+        '''
+        
+        df = pd.read_csv(self.filename, usecols=keep_cols)
+        
+        df.rename(
+            columns=({ 'Timestamp (YYYY-MM-DDThh:mm:ss)': 'Timestamp',
+                       'Event Type': 'EventType',
+                       'Event Subtype': 'EventSubtype',
+                       'Glucose Value (mg/dL)': 'Glucose',
+                       'Insulin Value (u)': 'Insulin',
+                       'Carb Value (grams)': 'Carb',
+                       'Duration (hh:mm:ss)': 'Duration',
+                       'Glucose Rate of Change (mg/dL/min)': 'Rate' }), inplace=True)
+        return df
 
-    # ax.set_xlabel("Timestamp")
-    # ax.set_ylabel("Glucose Value(mg/dL)")    
-    # imagePath = 'static/images/'+imageName
-    
-    # # Moves legend/graph labels to top-center of image
-    # ax.legend(bbox_to_anchor=(0.5, 1.1))
-    # plt.savefig(imagePath)
 
-    # plt.savefig(imageName)
+    def graph(self):
+        '''Plots dataframe data.'''
 
-    return imageName
+        temp_df = self.df.copy(deep=True)
+        
+        # print(temp_df['Glucose'])
+
+        # Multiply value of insulin by constant for easier viewing on graph
+        
+        # print(type(temp_df))
+        
+        temp_df['Insulin'] = temp_df['Insulin'] * 10
+        temp_df['Timestamp'] = pd.to_datetime(temp_df['Timestamp'], errors='coerce')
+
+        mask = (temp_df['Timestamp'] > self.start_date) & (temp_df['Timestamp'] <= self.end_date)
+        temp_df = temp_df.loc[mask]
+
+        # print(type(temp_df))
+
+        ax = temp_df.plot(kind="line", x="Timestamp",y="Glucose", color="b", label="Glucose")
+        temp_df.plot(kind="scatter",x="Timestamp",y="Carb", color="g", label="Carbs (g)", ax=ax)
+        temp_df.plot(kind="scatter",x="Timestamp",y="Insulin", color="c", label="Insulin (u / 10)", ax=ax)
+
+        # TODO: Read in these values for Glucose Values too High/Low from csv
+        plt.axhline(y=70, color='r', linestyle='-')
+        plt.axhline(y=250, color='r', linestyle='-')
+
+        # Increases number of ticks on y-axis
+        # axes.yaxis.set_major_locator(ticker.MaxNLocator(20))
+
+        plt.xticks(rotation=45)
+
+        ax.set_xlabel("Timestamp")
+        ax.set_ylabel("Glucose Value(mg/dL)")    
+
+        # Moves legend/graph labels to top-center of image
+        ax.legend(bbox_to_anchor=(0.5, 1.1))
+
+        return plt
+
 
 def main():
     # Testing date
     date_String = "10-20-2021"
     time1 = datetime.strptime(date_String, '%m-%d-%Y')
  
-    graphData(FILENAME)
+    # graphData(FILENAME)
 
 if __name__ == "__main__":
     main()
