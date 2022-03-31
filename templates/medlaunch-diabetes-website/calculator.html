@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <!-- <link rel="stylesheet" href="css/html5reset.css">
-        <link rel="stylesheet" href="css/style.css"> -->
-        <!-- <link rel="shortcut icon" type="image/png" href="images/team-logo.png"/> -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="images/team-logo.png"/> -->
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/html5reset.css') }}">
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
         <link rel= "shortcut icon" type= "image/png" href= "{{ url_for('static',filename='images/team-logo.png') }}">
-        
+
         <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Architects+Daughter&family=Montserrat&family=Patrick+Hand&display=swap" rel="stylesheet">
         <title>Sugar Buddy</title>
       </head>
@@ -23,13 +23,50 @@
             <li><a href="quickfacts">Quickfacts</a></li>
             <li><a class="current" href="calculator">Calculator</a></li>
             <li><a  href="treatments">Treatments</a></li>
-            <li><a  href="form/">Input Data</a></li>
+            
           </ul>
       </nav>
       </header>
+      <form action = "/upload" accept-charset = "utf-8" class = "simform" method = "POST" enctype = "multipart/form-data">
+        <div class = data>
+          <div class = "d top-left">
+            <h1>Sugar Buddy Calculator</h1>
+            <h3>Welcome to the Sugar Buddy calculator! With your blood glucose data, we wil able to generate a report summarizing your last week's blood sugar levels. 
+              Meanwile, enter your carb and insulin intake plan for today to receive a prediction of your blood glucose for the day! </h3>
+          </div>
 
-      <div class = const>
-          <!-- <img src = "images/calculator-temp-page.png" alt = "Under Construction"> -->
-          <img src="{{url_for('static', filename='images/calculator-temp-page.png')}}" alt = "Under Construction" />
-      </div>
+          <div class = "d top-right">
+            <img src="{{ url_for('static', filename = 'images/Calculator.png') }}" alt="Other drugs" style="width:600px;height: 400px;">
+          </div>
+
+          <div class = "d bottom-left">
+              <h2>Sync Data</h2>
+            <p><br></p>
+
+            <p>Upload CSV File<input type = 'file' name = "File" />
+
+            <p><br></p>
+          </div>
+
+          <div class = "d bottom-right">
+            <h2>Data Inputs</h2>
+            <p>Potential amount of Carb intake for next meal: <input type = "number" name = "Number1" /> <small>g</small>
+
+            <p>Time of your next meal: <input type = "time" name = "Time" />
+
+            <p>Predicted amount of Insulin for your next meal: <input type = "number" name = "Number2" /> <small>units</small>
+
+            <p>Date for analysis: <input type = "date" name = "date1" />
+          </div>
+
+        </div>
+        <div class = button>
+          <input type = "submit" value = "Submit" id = 'submit' />
+        </div>
+      </form>
+
+      <footer>
+        <p>Made by FutureG from the University of Michigan</p>
+      </footer>
+
     </body>

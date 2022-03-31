@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/html5reset.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+        <link rel= "shortcut icon" type= "image/png" href= "{{ url_for('static',filename='images/team-logo.png') }}">
+        <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&family=Architects+Daughter&family=Montserrat&family=Patrick+Hand&display=swap" rel="stylesheet">
+        <title>Sugar Buddy</title>
+      </head>
+
+      <body>
+            <div class="skip"><a href="#main">Skip to Main Content</a></div>
+      <header>
+        <a href="/"><img src = "{{ url_for('static', filename = 'images/team-logo.png') }}" alt="image of logo" id = "logo"></a></li>
+      <nav>
+          <ul class="nav_links">
+            <li><a href="quickfacts.html">Quickfacts</a></li>
+            <li><a class="current" href="calculator.html">Calculator</a></li>
+            <li><a  href="treatments.html">Treatments</a></li>
+            
+          </ul>
+      </nav>
+      </header>
+
+      <main>
+      <h1>Calculator Results</h1>
+      <div class = "everything"> 
+      <div class = "left">
+          <h2>Results</h2>
+        <h3>Your Blood Glucose Management Level is: {{ gradeValue }}</h3>
+        <h3>Average: {{ mean}} </h3>
+        <h3>Minimum:  </h3>
+        <h3>Maximum: {{ Max }} </h3>
+      </div>
+      
+      <div class = "right">
+          <h2>Graph</h2>
+          <img src={{plot}} alt="User Image">
+      </div>
+    </div>
+
+    <div class="button_back">
+    <a href="calculator"><button class="btn3">Back</button> </a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Made by FutureG from the University of Michigan</p>
+  </footer>
+
+    </body>
